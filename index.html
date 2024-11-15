@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Learning how to Javascript</h1>
+<h2>High Card</h2>
+
+<p>Click the button and see if you can beat the dealer</p>
+
+<div margin=10%>
+<p id="deck" ></p>
+</div>
+
+<button onclick="shuffle(deck)"> SHUFFLE CARDS</button>
+<button onclick="deal()"> PLAY </button>
+
+<p id="card1"></p>
+<p id="card2"></p>
+<p id="array1"></p>
+<p id="array2"></p>
+
+<p id="result"></p>
+
+
+
+<script>
+
+//Building array of cards
+const deck = []
+const suit = ["️♠️","❤️","♣","♦️"]
+const value =["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
+
+for (var i = 0; i < suit.length; i++) {
+ for (var j = 0; j < value.length; j++) {
+    let x = value[j] + suit[i] 
+    deck.push(x)
+	
+    }
+}	
+
+//Shuffle Operation
+function shuffle(cards) {
+    for (let i = cards.length -1; i > 0; i--) {
+  let j = Math.floor(Math.random() * (i+1));
+  let k = cards[i];
+  cards[i] = cards[j];
+  cards[j] = k;
+  }
+  document.getElementById("deck").innerHTML = deck;
+}
+
+console.log(deck)
+shuffle(deck)
+
+//Display shuffled deck of cards
+document.getElementById("deck").innerHTML = deck; 
+
+function deal() {
+				//Get last 2 cards from shuffled deck
+let card1 = deck.pop()
+let card2 = deck.pop()
+
+				//Converting cards from string elements to values to be compared
+playersHand = card1.split('');
+comp = card2.split(''); 
+
+deck.unshift(card1,card2)
+
+let a = playersHand[0];
+let b = comp[0];
+
+ if (a == "A"){ 
+ playersHand[0] = 14}
+ if (a == "K"){
+ playersHand[0] = 13}
+ if (a == "Q"){ 
+ playersHand[0] = 12}
+ if (a == "J"){
+ playersHand[0] = 11}
+
+ if (b == "A"){ 
+  comp[0] = 14}
+ if (b == "K"){
+ comp[0] = 13}
+ if (b == "Q"){ 
+ comp[0] = 12}
+ if (b == "J"){
+ comp[0] = 11}
+
+x = Number(playersHand[0]);
+y = Number(comp[0]);
+
+if (x > y) {document.getElementById("result").innerHTML = "You Win!"; }
+if (x < y) {document.getElementById("result").innerHTML = "You Loser!";}
+if (x == y) {document.getElementById("result").innerHTML = "Draw!"; }
+
+document.getElementById("card1").innerHTML = "Your card is: " + card1; 
+document.getElementById("card2").innerHTML = "The computer's card is: " +  card2; 
+//document.getElementById("array1").innerHTML = x; 
+//document.getElementById("array2").innerHTML = y; 
+}
+
+</script>
+
+</body>
+</html>
